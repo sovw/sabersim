@@ -152,7 +152,7 @@ GameTitle.Position = UDim2.new(0.5, 0, 0.458937198, 0)
 GameTitle.Size = UDim2.new(0, 226, 0, 34)
 GameTitle.ZIndex = 2
 GameTitle.Font = Enum.Font.SourceSansBold
-GameTitle.Text = "Saber Simulator"
+GameTitle.Text = "GameTitle"
 GameTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
 GameTitle.TextSize = 22.000
 GameTitle.TextTransparency = 1.000
@@ -278,7 +278,7 @@ local function VWLNPE_fake_script() -- Logo.LocalScript
 
 	local Top = script.Parent
 	
-	wait(1.8)
+	wait(2.1)
 	Top.ImageTransparency = 0.9
 	wait()
 	Top.ImageTransparency = 0.8
@@ -440,8 +440,7 @@ local function ZLBZF_fake_script() -- StartBtn.LocalScript
 		wait()
 		Circle:TweenSize(UDim2.new(0, 0, 0, 0), Enum.EasingDirection.In, Enum.EasingStyle.Quint, 1)
 		wait(2)
-		local library = loadstring(game:HttpGet("https://pastebin.com/raw/eWKgbdix", true))()
-			library.options.underlinecolor = "rainbow"
+		local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/sovw/Library/master/lib.lua", true))()
 			local w = library:CreateWindow('Local Player')
 			w:Section('Local Player')
 			local old = workspace.CurrentCamera.FieldOfView
@@ -455,7 +454,7 @@ local function ZLBZF_fake_script() -- StartBtn.LocalScript
 			local b2 = w:Button('Reset FOV', function()
 			   s:Set(old)
 			end)
-			
+		
 			local box = w:Box('JumpPower', {
 			   flag = "ws";
 			   type = 'number';
@@ -469,8 +468,7 @@ local function ZLBZF_fake_script() -- StartBtn.LocalScript
 			
 			
 			local f = library:CreateWindow('Farming')
-			f:Section('Farming')
-			
+			f:Section('Basic Farming')
 			f:Toggle("Auto-Swing", {flag = "swing"})
 			f:Toggle("Auto-Sell", {flag = "sell"})
 			
@@ -479,6 +477,7 @@ local function ZLBZF_fake_script() -- StartBtn.LocalScript
 			if f.flags.swing then
 			pcall(function()
 			game:GetService("ReplicatedStorage").Events.Clicked:FireServer()
+            game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool").RemoteClick:FireServer()
 			end)
 			end
 			end
@@ -493,9 +492,44 @@ local function ZLBZF_fake_script() -- StartBtn.LocalScript
 			end
 			end
 			end)
-			
+
+			f:Section('Advanced Farming')
+			f:Toggle("Auto-Collect Coins", {flag = "coin"})
+
+			spawn(function()
+			while wait()do
+			if f.flags.coin then
+			pcall(function()
+			local UwU = game.Players.LocalPlayer.Character.HumanoidRootPart
+            for i,v in pairs(game.workspace.CoinsHolder:GetChildren()) do
+            UwU.CFrame = v.CFrame
+            wait(0.2)
+            end
+			end)
+			end
+			end
+			end)
+
+			f:Section('Boss Farming')
+			f:Toggle("Auto-Boss", {flag = "boss"})
+
+			spawn(function()
+			while wait()do
+			if f.flags.boss then
+			pcall(function()
+			if game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart") then
+             if game:GetService("Workspace"):WaitForChild("Boss"):WaitForChild("Head") then
+                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace["Boss"].Head.CFrame
+                game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool").RemoteClick:FireServer()
+             end
+            end
+			end)
+			end
+			end
+			end)
+
 			local q = library:CreateWindow('Auto-Buy')
-			q:Section('Auto-Buy')
+			q:Section('Shop')
 			
 			q:Toggle("Auto-Buy Sabers", {flag = "saber"})
 			q:Toggle("Auto-Buy DNA", {flag = "dna"})
@@ -515,6 +549,19 @@ local function ZLBZF_fake_script() -- StartBtn.LocalScript
 			if q.flags.dna then
 			pcall(function()
 			game:GetService("ReplicatedStorage").Events.BuyAll:FireServer("Backpacks")
+			end)
+			end
+			end
+			end)
+
+			q:Section('Crown Shop')
+			q:Toggle("Auto-Buy Aura", {flag = "aura"})
+
+			spawn(function()
+			while wait()do
+			if q.flags.aura then
+			pcall(function()
+			game:GetService("ReplicatedStorage").Events.BuyAll:FireServer("Auras")
 			end)
 			end
 			end
@@ -634,8 +681,10 @@ local function ZLBZF_fake_script() -- StartBtn.LocalScript
 			
 			
 			local w = library:CreateWindow('Credits')
-			w:Label("UI - wally")
+			w:Label("UI - wally (edited)")
 			w:Label("Scripts - sovw")
+			w:Label("Auto-Boss: !Reaper|French!")
+			w:Label("DeadHub - vuax")
 			local b = w:Button('Copy Discord Invite', function()
 			setclipboard("https://discord.gg/yEFUCZa")
 			end)
