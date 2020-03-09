@@ -152,7 +152,7 @@ GameTitle.Position = UDim2.new(0.5, 0, 0.458937198, 0)
 GameTitle.Size = UDim2.new(0, 226, 0, 34)
 GameTitle.ZIndex = 2
 GameTitle.Font = Enum.Font.SourceSansBold
-GameTitle.Text = "GameTitle"
+GameTitle.Text = "Saber Simulator"
 GameTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
 GameTitle.TextSize = 22.000
 GameTitle.TextTransparency = 1.000
@@ -278,7 +278,7 @@ local function VWLNPE_fake_script() -- Logo.LocalScript
 
 	local Top = script.Parent
 	
-	wait(2.1)
+	wait(1.7)
 	Top.ImageTransparency = 0.9
 	wait()
 	Top.ImageTransparency = 0.8
@@ -476,8 +476,17 @@ local function ZLBZF_fake_script() -- StartBtn.LocalScript
 			while wait()do
 			if f.flags.swing then
 			pcall(function()
-			game:GetService("ReplicatedStorage").Events.Clicked:FireServer()
-            game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool").RemoteClick:FireServer()
+                        local plr = game.Players.LocalPlayer.Character.Humanoid
+                        local tool = game.Players.LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
+                        
+                        if tool.Parent == plr then
+                        print('ok')
+                        else
+                        plr:EquipTool(tool)
+                        end
+                        end);
+                        game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool").RemoteClick:FireServer()
+                        game:GetService("ReplicatedStorage").Events.Clicked:FireServer()
 			end)
 			end
 			end
