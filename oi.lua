@@ -278,7 +278,7 @@ local function VWLNPE_fake_script() -- Logo.LocalScript
 
 	local Top = script.Parent
 	
-	wait(1.7)
+	wait(1.6)
 	Top.ImageTransparency = 0.9
 	wait()
 	Top.ImageTransparency = 0.8
