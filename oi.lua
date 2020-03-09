@@ -473,7 +473,6 @@ local function ZLBZF_fake_script() -- StartBtn.LocalScript
 			f:Toggle("Auto-Sell", {flag = "sell"})
 			
 			spawn(function()
-			while wait()do
 			if f.flags.swing then
 			pcall(function()
                         local plr = game.Players.LocalPlayer.Character.Humanoid
@@ -484,8 +483,10 @@ local function ZLBZF_fake_script() -- StartBtn.LocalScript
                         else
                         plr:EquipTool(tool)
                         end
+			while wait()do
                         game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool").RemoteClick:FireServer()
                         game:GetService("ReplicatedStorage").Events.Clicked:FireServer()
+			end
 			end);
 			end
 			end
