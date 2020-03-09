@@ -492,11 +492,11 @@ local function ZLBZF_fake_script() -- StartBtn.LocalScript
 			end)
 			
 			spawn(function()
-			while wait(0.2)do
+			while wait(0.6)do
 			if f.flags.sell then
 			pcall(function()
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(529.608154, 209.191711, 56.5093498)	
-			wait(0.2)
+			wait(0.6)
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(531.95459, 183.8358, 147.336487)
 			end)
 			end
