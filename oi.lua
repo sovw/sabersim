@@ -484,9 +484,9 @@ local function ZLBZF_fake_script() -- StartBtn.LocalScript
                         else
                         plr:EquipTool(tool)
                         end
-			end);
                         game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool").RemoteClick:FireServer()
                         game:GetService("ReplicatedStorage").Events.Clicked:FireServer()
+			end);
 			end
 			end
 			end)
