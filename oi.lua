@@ -472,25 +472,28 @@ local function ZLBZF_fake_script() -- StartBtn.LocalScript
 			f:Toggle("Auto-Swing", {flag = "swing"})
 			f:Toggle("Auto-Sell", {flag = "sell"})
 			
-			spawn(function()
-			if f.flags.swing then
-			pcall(function()
+                        spawn(function()
+                        while wait()do 
+                        if f.flags.swing then 
+                        pcall(function()
                         local plr = game.Players.LocalPlayer.Character.Humanoid
                         local tool = game.Players.LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
-            
+                        
                         if tool.Parent == plr then
                         print('ok')
                         else
                         plr:EquipTool(tool)
                         end
-			while wait()do
-                        game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool").RemoteClick:FireServer()
+                        end);
+                        pcall(function()
+                        while wait() do
                         game:GetService("ReplicatedStorage").Events.Clicked:FireServer()
-			end
-			end);
-			end
-			end
-			end)
+                        game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool").RemoteClick:FireServer()
+                        end
+                        end);
+                        end
+                        end
+                        end)
 			
 			spawn(function()
 			while wait(0.6)do
