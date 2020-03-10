@@ -547,6 +547,7 @@ local function ZLBZF_fake_script() -- StartBtn.LocalScript
 			
 			q:Toggle("Auto-Buy Sabers", {flag = "saber"})
 			q:Toggle("Auto-Buy DNA", {flag = "dna"})
+			q:Toggle("Auto-Buy Class", {flag = "class"})
 			
 			spawn(function()
 			while wait()do
@@ -567,6 +568,23 @@ local function ZLBZF_fake_script() -- StartBtn.LocalScript
 			end
 			end
 			end)
+			
+			spawn(function()
+			while wait()do
+			if q.flags.class then
+			pcall(function()
+			local events = game:GetService("ReplicatedStorage").Events
+
+                        for i, v in pairs(game:GetService("ReplicatedStorage").ShopItems.Classes:GetChildren()) do
+
+                        if not v:FindFirstChild("ID") then
+                        events.BuyItem:FireServer(v)
+                        end
+                        end
+			end)
+			end
+			end
+			end)
 
 			q:Section('Crown Shop')
 			q:Toggle("Auto-Buy Aura", {flag = "aura"})
@@ -576,6 +594,30 @@ local function ZLBZF_fake_script() -- StartBtn.LocalScript
 			if q.flags.aura then
 			pcall(function()
 			game:GetService("ReplicatedStorage").Events.BuyAll:FireServer("Auras")
+			end)
+			end
+			end
+			end)
+			
+			q:Section('Skill Shop')
+			q:Toggle("Auto-Buy Boss Hit", {flag = "hit"})
+			q:Toggle("Auto-Buy Double Jump", {flag = "jump"})
+
+			spawn(function()
+			while wait()do
+			if q.flags.aura then
+			pcall(function()
+			game:GetService("ReplicatedStorage").Events.BuyAll:FireServer("JumpBoosts")
+			end)
+			end
+			end
+			end)
+
+			spawn(function()
+			while wait()do
+			if q.flags.aura then
+			pcall(function()
+			game:GetService("ReplicatedStorage").Events.BuyAll:FireServer("BossBoosts")
 			end)
 			end
 			end
@@ -675,6 +717,42 @@ local function ZLBZF_fake_script() -- StartBtn.LocalScript
 			print("Unlocked all islands!")
 			end)
 			
+			e:Section('Pet Stuff')
+			
+			local eggs = {}
+			for i,v in pairs(game:GetService("ReplicatedStorage").Eggs:GetChildren()) do
+			eggs[i] = v.Name
+			end
+			
+			e:Dropdown("Eggs", {
+			flag = "SelectedEgg";
+			list = eggs;
+			}
+			)
+			
+
+			e:Toggle("Auto-Hatch", {flag = "hatch"})
+			e:Toggle("Auto-Combine", {flag = "combine"})
+			
+			spawn(function()
+			while wait()do
+			if r.flags.hatch then 
+			local A_1 = game:GetService("ReplicatedStorage").Eggs[r.flags.SelectedEgg]
+			local A_2 = 1
+			local Event = game:GetService("ReplicatedStorage").Events.HatchEggs
+			Event:InvokeServer(A_1, A_2)
+			end
+			end
+            end)
+			
+			spawn(function()
+			while wait()do
+			if r.flags.combine then
+			game:GetService("ReplicatedStorage").Events.CombineAll:FireServer()
+			end
+			end
+			end)
+			
 			e:Section("UI")
 			
 			e:Bind("Toggle GUI Key",
@@ -691,15 +769,7 @@ local function ZLBZF_fake_script() -- StartBtn.LocalScript
 			e:Button("Destroy GUI", function()
 			game:GetService("CoreGui").ScreenGui:Destroy()
 			end)
-			
-			
-			
-			local w = library:CreateWindow('Credits')
-			w:Label("UI - wally (edited)")
-			w:Label("Scripts - sovw")
-			w:Label("Auto-Boss: !Reaper|French!")
-			w:Label("DeadHub - vuax")
-			local b = w:Button('Copy Discord Invite', function()
+			local b = e:Button('Copy Discord Invite', function()
 			setclipboard("https://discord.gg/yEFUCZa")
 			end)
 		wait()
