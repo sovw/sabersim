@@ -475,22 +475,13 @@ local function ZLBZF_fake_script() -- StartBtn.LocalScript
                         spawn(function()
                         while wait()do 
                         if f.flags.swing then 
-                        pcall(function()
-                        local plr = game.Players.LocalPlayer.Character.Humanoid
-                        local tool = game.Players.LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
-                        
-                        if tool.Parent == plr then
-                        print('ok')
-                        else
-                        plr:EquipTool(tool)
-                        end
-                        end);
-                        pcall(function()
-                        while wait() do
-                        game:GetService("ReplicatedStorage").Events.Clicked:FireServer()
-                        game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool").RemoteClick:FireServer()
-                        end
-                        end);
+                        for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                        if v:IsA("Tool") then
+			v.Parent = game.Players.LocalPlayer.Character
+		        end
+		        end
+		        game:GetService("ReplicatedStorage").Events.Clicked:FireServer()
+			game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool").Events.RemoteClick:FireServer()
                         end
                         end
                         end)
