@@ -474,7 +474,8 @@ local function ZLBZF_fake_script() -- StartBtn.LocalScript
 			
                         spawn(function()
                         while wait()do 
-                        if f.flags.swing then 
+                        if f.flags.swing then
+			pcall(function()
                         for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
                         if v:IsA("Tool") then
 			v.Parent = game.Players.LocalPlayer.Character
@@ -482,6 +483,7 @@ local function ZLBZF_fake_script() -- StartBtn.LocalScript
 		        end
 		        game:GetService("ReplicatedStorage").Events.Clicked:FireServer()
 			game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool").RemoteClick:FireServer()
+			end);
                         end
                         end
                         end)
